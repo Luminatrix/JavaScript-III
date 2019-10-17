@@ -39,9 +39,41 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by un-commenting these 3 objects and the list of console logs below:
+function GameObject(gameObejectAttributes){
+  this.createdAt = gameObejectAttributes.createdAt;
+  this.dimensions = gameObejectAttributes.dimensions;
+}
+//methods for this ^ constructor 
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game`; 
+}
+ //Build next constructor 
+function CharacterStats(characterStatsAttribute){
+  this.hp = characterStatsAttribute.hp;
+  this.name = characterStatsAttribute.name; 
+  GameObject.call(this, characterStatsAttribute); 
+}
+// Inheritance
+CharacterStats.prototype = Object.create(GameObject.prototype); 
 
-/*
+//methods for this ^ constructor 
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`; 
+} 
+
+
+// Test you work by un-commenting these 3 objects and the list of console logs below:
+function Humanoid(humanoidAttributes){  
+  this.faction = humanoidAttributes.faction; 
+  this.weapons = humanoidAttributes.weapons; 
+  this.language = humanoidAttributes.language; 
+  CharacterStats.call(this,humanoidAttributes);
+}
+
+
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -64,6 +96,7 @@
       length: 2,
       width: 2,
       height: 2,
+      healthPoints:15,
     },
     healthPoints: 15,
     name: 'Sir Mustachio',
@@ -99,11 +132,6 @@
   console.log(swordsman.team); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
-
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
